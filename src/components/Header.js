@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { fetchCurrencies, selectCurr } from '../redux/reducers/currencySlice';
 import { connect } from 'react-redux';
@@ -11,11 +12,17 @@ class Header extends React.Component {
     super();
     this.state = {
       selected: 'USD',
+      location: '',
     }
   }
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch(fetchCurrencies());
+    const { pathname } = window.location;
+    this.setState((prevSt) => ({
+      ...prevSt,
+      location: pathname,
+    }))
   }
 
   handleChange = ({ target: { value } }) => {
@@ -31,16 +38,22 @@ class Header extends React.Component {
 
   render() {
     const { currencies, loading, cart } = this.props;
-    const { selected } = this.state;
+    const { selected, location } = this.state;
     return (
       loading
         ? <p className="loading">Loading</p>
         : (
           <header className={ style.header }>
             <nav className={ style.nav }>
-              <Link className={ style.link } to="/women">WOMEN</Link>
-              <Link className={ style.link } to="/men">MEN</Link>
-              <Link className={ style.link } to="/kids">KIDS</Link>
+              <section className={ location === '/women' ? style.active : style.link_box }>
+                <Link className={ style.link } to="/women">WOMEN</Link>
+              </section>
+              <section className={ location === '/men' ? style.active : style.link_box }>
+                <Link className={ style.link } to="/men">MEN</Link>
+              </section>
+              <section className={ location === '/kids' ? style.active : style.link_box }>
+                <Link className={ style.link } to="/kids">KIDS</Link>
+              </section>
             </nav>
             <img className={ style.logo } src={ logo } alt="Brand icon" />
             <section className={ style.select_cart }>
@@ -60,11 +73,20 @@ class Header extends React.Component {
   }
 }
 
+Header.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.shape({
+    label: PropTypes.string,
+    symbol: PropTypes.string,
+  })).isRequired,
+  loading: PropTypes.bool.isRequired,
+  cart: PropTypes.number.isRequired,
+}
+
 const mapStateToProps = (state) => ({
   currencies: state.currencies.currencies,
   loading: state.currencies.loading,
+  cart: state.cart.cart.length,
 })
 
 export default connect(mapStateToProps)(Header);
-
-// export default Header;
