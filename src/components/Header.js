@@ -12,17 +12,11 @@ class Header extends React.Component {
     super();
     this.state = {
       selected: 'USD',
-      location: '',
     }
   }
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch(fetchCurrencies());
-    const { pathname } = window.location;
-    this.setState((prevSt) => ({
-      ...prevSt,
-      location: pathname,
-    }))
   }
 
   handleChange = ({ target: { value } }) => {
@@ -38,20 +32,20 @@ class Header extends React.Component {
 
   render() {
     const { currencies, loading, cart } = this.props;
-    const { selected, location } = this.state;
+    const { selected } = this.state;
     return (
       loading
         ? <p className="loading">Loading</p>
         : (
           <header className={ style.header }>
             <nav className={ style.nav }>
-              <section className={ location === '/women' ? style.active : style.link_box }>
+              <section className={ style.active }>
                 <Link className={ style.link } to="/women">WOMEN</Link>
               </section>
-              <section className={ location === '/men' ? style.active : style.link_box }>
+              <section className={ style.link_box }>
                 <Link className={ style.link } to="/men">MEN</Link>
               </section>
-              <section className={ location === '/kids' ? style.active : style.link_box }>
+              <section className={ style.link_box }>
                 <Link className={ style.link } to="/kids">KIDS</Link>
               </section>
             </nav>
