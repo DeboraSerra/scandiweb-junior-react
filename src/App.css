@@ -13,3 +13,8 @@
   font-family: 'Raleway', sans-serif;
   color: var(--secondary);
 }
+
+main {
+  width: 90%;
+  margin: auto;
+}
