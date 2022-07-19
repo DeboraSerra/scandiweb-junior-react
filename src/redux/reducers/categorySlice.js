@@ -5,10 +5,10 @@ const url = 'http://localhost:4000';
 
 const initialState = {
   allCategories: [],
-  category: '',
+  category: 'all',
   products: [],
   allProducts: [],
-  loading: false,
+  loading: true,
 }
 
 export const fetchCategories = createAsyncThunk('category/fetchCategories', async () => {
@@ -67,7 +67,7 @@ const categoryReducer = createSlice({
   reducers: {
     selectCategory: (state, action) => {
       state.category = action.payload.category;
-      state.products = state.allProducts.find(({ name }) => name === action.payload.category);
+      state.products = state.allProducts.find(({ name }) => name === action.payload.category).products;
     }
   },
   extraReducers: (builder) => {

@@ -1,22 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { fetchCurrencies, selectCurr } from '../redux/reducers/currencySlice';
 import { connect } from 'react-redux';
 import logo from '../images/Brand-iconbrand_icon.svg';
 import cartImg from '../images/Empty-cart.svg';
 import style from '../styles/Header.module.css';
+import { fetchCategory, selectCategory } from '../redux/reducers/categorySlice';
 
 class Header extends React.Component {
   constructor() {
     super();
     this.state = {
       selected: 'USD',
+      location: 'all',
     }
   }
-  componentDidMount() {
+  async componentDidMount() {
     const { dispatch } = this.props;
     dispatch(fetchCurrencies());
+    await dispatch(fetchCategory());
+    await dispatch(selectCategory({ category:  'all' }));
   }
 
   handleChange = ({ target: { value } }) => {
@@ -30,23 +33,40 @@ class Header extends React.Component {
     })
   }
 
+  handleClick = ({ target }) => {
+    const category = target.innerText.toLowerCase();
+    this.setState((prevSt) => ({
+      ...prevSt,
+      location: category,
+    }), () => {
+      const { dispatch } = this.props;
+      dispatch(selectCategory({ category }));
+    })
+  }
+
   render() {
     const { currencies, loading, cart } = this.props;
-    const { selected } = this.state;
+    const { selected, location } = this.state;
     return (
       loading
         ? <p className="loading">Loading</p>
         : (
           <header className={ style.header }>
             <nav className={ style.nav }>
-              <section className={ style.active }>
-                <Link className={ style.link } to="/women">WOMEN</Link>
+              <section className={ location === 'all' ? style.active : style.link_box }>
+                <button type="button" className={ style.link } onClick={this.handleClick}>
+                  ALL
+                </button>
               </section>
-              <section className={ style.link_box }>
-                <Link className={ style.link } to="/men">MEN</Link>
+              <section className={ location === 'clothes' ? style.active : style.link_box }>
+                <button type="button" className={ style.link } onClick={this.handleClick}>
+                  CLOTHES
+                </button>
               </section>
-              <section className={ style.link_box }>
-                <Link className={ style.link } to="/kids">KIDS</Link>
+              <section className={ location === 'tech' ? style.active : style.link_box }>
+                <button type="button" className={ style.link } onClick={this.handleClick}>
+                  TECH
+                </button>
               </section>
             </nav>
             <img className={ style.logo } src={ logo } alt="Brand icon" />
