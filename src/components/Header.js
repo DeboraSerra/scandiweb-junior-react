@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { request, gql } from 'graphql-request';
-// import { fetchedCurrencies } from '../features/currencies/currenciesSlice';
-// import { connect } from 'react-redux';
+import { fetchCurrencies, selectCurr } from '../redux/reducers/currencySlice';
+import { connect } from 'react-redux';
 import logo from '../images/Brand-iconbrand_icon.svg';
 import cartImg from '../images/Empty-cart.svg';
 import style from '../styles/Header.module.css';
@@ -11,35 +10,28 @@ class Header extends React.Component {
   constructor() {
     super();
     this.state = {
-      currencies: [],
-      loading: true,
-      cart: 0,
+      selected: 'USD',
     }
   }
   componentDidMount() {
-    this.fetchCurrencies();
+    const { dispatch } = this.props;
+    dispatch(fetchCurrencies());
   }
 
-  fetchCurrencies = async () => {
-    const query = gql`
-      {
-        currencies {
-          label
-          symbol
-        }
-      }
-    `
-    const url = 'http://localhost:4000';
-    const response = await request(url, query);
+  handleChange = ({ target: { value } }) => {
     this.setState((prevSt) => ({
       ...prevSt,
-      currencies: response.currencies,
-      loading: false,
-    }))
+      selected: value,
+    }), () => {
+      const { selected } = this.state;
+      const { dispatch } = this.props;
+      dispatch(selectCurr(selected));
+    })
   }
 
   render() {
-    const { currencies, loading, cart } = this.state;
+    const { currencies, loading, cart } = this.props;
+    const { selected } = this.state;
     return (
       loading
         ? <p className="loading">Loading</p>
@@ -52,7 +44,7 @@ class Header extends React.Component {
             </nav>
             <img className={ style.logo } src={ logo } alt="Brand icon" />
             <section className={ style.select_cart }>
-              <select  className={ style.select } name="currency">
+              <select  className={ style.select } name="currency" onChange={ this.handleChange } value={ selected }>
                 {currencies?.map(({ label, symbol }) => (
                   <option key={ label } value={ label }>{symbol}</option>
                 ))}
@@ -68,10 +60,11 @@ class Header extends React.Component {
   }
 }
 
-// const mapStateToProps = (state) => ({
-//   currencies: state.currencies,
-// })
+const mapStateToProps = (state) => ({
+  currencies: state.currencies.currencies,
+  loading: state.currencies.loading,
+})
 
-// export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps)(Header);
 
-export default Header;
+// export default Header;
