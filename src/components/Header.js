@@ -5,6 +5,7 @@ import { request, gql } from 'graphql-request';
 // import { connect } from 'react-redux';
 import logo from '../images/Brand-iconbrand_icon.svg';
 import cartImg from '../images/Empty-cart.svg';
+import style from '../styles/Header.module.css';
 
 class Header extends React.Component {
   constructor() {
@@ -41,24 +42,24 @@ class Header extends React.Component {
     const { currencies, loading, cart } = this.state;
     return (
       loading
-        ? <p>Loading</p>
+        ? <p className="loading">Loading</p>
         : (
-          <header>
-            <nav>
-              <Link to="/women">WOMEN</Link>
-              <Link to="/men">MEN</Link>
-              <Link to="/kids">KIDS</Link>
+          <header className={ style.header }>
+            <nav className={ style.nav }>
+              <Link className={ style.link } to="/women">WOMEN</Link>
+              <Link className={ style.link } to="/men">MEN</Link>
+              <Link className={ style.link } to="/kids">KIDS</Link>
             </nav>
-            <img src={ logo } alt="Brand icon" />
-            <section>
-              <select name="currency">
+            <img className={ style.logo } src={ logo } alt="Brand icon" />
+            <section className={ style.select_cart }>
+              <select  className={ style.select } name="currency">
                 {currencies?.map(({ label, symbol }) => (
                   <option key={ label } value={ label }>{symbol}</option>
                 ))}
               </select>
-              <section>
+              <section className={ style.cart }>
                 <img src={ cartImg } alt="Cart icon" />
-                {cart !== 0 && <section>{cart}</section>}
+                {cart !== 0 && <section className={ style.amount }>{cart}</section>}
               </section>
             </section>
           </header>
