@@ -32,7 +32,10 @@ class Shop extends React.Component {
 
   handleClick = (prod) => {
     const { dispatch } = this.props;
-    dispatch(addItem(prod));
+    if (prod.inStock) {
+      const attributesSelected = prod.attributes.map(({ id, items }) => ({ id, item: items[0].id }));
+      dispatch(addItem({ ...prod,  attributesSelected, amount: 1 }));
+    }
   }
 
   render() {

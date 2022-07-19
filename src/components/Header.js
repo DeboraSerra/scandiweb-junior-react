@@ -6,6 +6,7 @@ import logo from '../images/Brand-iconbrand_icon.svg';
 import cartImg from '../images/Empty-cart.svg';
 import style from '../styles/Header.module.css';
 import { fetchCategory, selectCategory } from '../redux/reducers/categorySlice';
+import FloatCart from './FloatCart';
 
 class Header extends React.Component {
   constructor() {
@@ -13,6 +14,7 @@ class Header extends React.Component {
     this.state = {
       selected: 'USD',
       location: 'all',
+      show: false,
     }
   }
   async componentDidMount() {
@@ -44,9 +46,23 @@ class Header extends React.Component {
     })
   }
 
+  showCart = () => {
+    this.setState((prevSt) => ({
+      ...prevSt,
+      show: true,
+    }))
+  }
+
+  hideCart = () => {
+    this.setState((prevSt) => ({
+      ...prevSt,
+      show: false,
+    }))
+  }
+
   render() {
     const { currencies, loading, cart } = this.props;
-    const { selected, location } = this.state;
+    const { selected, location, show } = this.state;
     return (
       loading
         ? <p className="loading">Loading</p>
@@ -76,11 +92,16 @@ class Header extends React.Component {
                   <option key={ label } value={ label }>{symbol}</option>
                 ))}
               </select>
-              <section className={ style.cart }>
+              <section className={ style.cart } onMouseEnter={this.showCart} onMouseLeave={this.hideCart}>
                 <img src={ cartImg } alt="Cart icon" />
-                {cart !== 0 && <section className={ style.amount }>{cart}</section>}
+                {cart !== 0 && (
+                  <section className={ style.amount }>
+                    {cart.reduce((acc, { amount }) => acc + amount, 0) }
+                  </section>
+                )}
               </section>
             </section>
+            {show && <FloatCart />}
           </header>
         )
     )
@@ -100,7 +121,7 @@ Header.propTypes = {
 const mapStateToProps = (state) => ({
   currencies: state.currencies.currencies,
   loading: state.currencies.loading,
-  cart: state.cart.cart.length,
+  cart: state.cart.cart,
 })
 
 export default connect(mapStateToProps)(Header);
