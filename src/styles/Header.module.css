@@ -47,6 +47,7 @@
   width: 8%;
   justify-content: space-around;
   align-items: center;
+  height: 100%;
 }
 
 .select {
@@ -62,14 +63,18 @@
 
 .cart {
   position: relative;
-  height: 20px;
+  height: 120%;
+  flex-grow: 1;
+  justify-content: center;
   width: 20px;
+  display: flex;
+  align-items: center;
 }
 
 .amount {
   position: absolute;
-  top: -8px;
-  right: -13px;
+  top: 15px;
+  right: 25px;
   background-color: var(--secondary);
   color: var(--main);
   border-radius: 50%;

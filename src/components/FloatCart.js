@@ -5,10 +5,10 @@ import style from '../styles/FloatCart.module.css';
 
 class FloatCart extends React.Component {
   render() {
-    const { cart, currency } = this.props;
-    const price = (prod) => prod.prices.find(({ currency: { label } }) => label === currency)
+    const { cart, currency, mouseEnter, mouseLeave } = this.props;
+    const price = (prod) => prod.prices.find(({ currency: { label } }) => label === currency);
     return (
-      <section className={ style.back }>
+      <section className={ style.back } onMouseEnter={ mouseEnter } onMouseLeave={ mouseLeave }>
         <section className={ style.cart }>
           <section className={ style.cart_title }>
             <h3 className={ style.title }>My Bag</h3>

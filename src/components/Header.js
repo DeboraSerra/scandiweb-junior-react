@@ -101,7 +101,7 @@ class Header extends React.Component {
                 )}
               </section>
             </section>
-            {show && <FloatCart />}
+            {show && <FloatCart mouseEnter={ this.showCart } mouseLeave={ this.hideCart } />}
           </header>
         )
     )
