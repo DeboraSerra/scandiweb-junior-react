@@ -23,6 +23,12 @@ class FloatCart extends React.Component {
                 {prod.attributes.map((att) => (
                   <Attributes key={ att.id } attributes={ att } selected={ prod.attributesSelected } />
                 ))}
+                <section className={ style.amount_sect }>
+                  <button type="button" className={ style.amount_btn }>-</button>
+                  <p className={ style.amount_item }>{prod.amount}</p>
+                  <button type="button" className={ style.amount_btn }>+</button>
+                </section>
+                <img className={ style.img_cart } src={prod.gallery[0]} alt={prod.brand + ' ' + prod.name} />
               </section>
             ))}
           </section>
