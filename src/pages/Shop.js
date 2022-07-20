@@ -62,7 +62,7 @@ class Shop extends React.Component {
                 />
                 {!prod.inStock && <p className={ style.out_msg }>OUT OF STOCK</p>}
                 <h2 className={ style.card_name }>
-                  {prod.name}
+                  {prod.brand + ' ' + prod.name}
                 </h2>
                 <p className={ style.card_price }>
                   {price(prod).currency.symbol + ' ' + price(prod).amount}

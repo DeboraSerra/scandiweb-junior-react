@@ -16,13 +16,15 @@ class FloatCart extends React.Component {
           </section>
           <section className={ style.items_sect }>
             {cart.map((prod) => (
-              <section key={ prod.id } className={ style.items }>
-                <p className={ style.brand }>{prod.brand}</p>
-                <p className={ style.name }>{prod.name}</p>
-                <p className={ style.price }>{price(prod).currency.symbol + ' ' + price(prod).amount}</p>
-                {prod.attributes.map((att) => (
-                  <Attributes key={ att.id } attributes={ att } selected={ prod.attributesSelected } />
-                ))}
+              <section key={ prod.id } className={ style.item }>
+                <section className={ style.item_info }>
+                  <p className={ style.brand }>{prod.brand}</p>
+                  <p className={ style.name }>{prod.name}</p>
+                  <p className={ style.price }>{price(prod).currency.symbol + ' ' + price(prod).amount}</p>
+                  {prod.attributes.map((att) => (
+                    <Attributes key={ att.id } attributes={ att } selected={ prod.attributesSelected } />
+                  ))}
+                </section>
                 <section className={ style.amount_sect }>
                   <button type="button" className={ style.amount_btn }>-</button>
                   <p className={ style.amount_item }>{prod.amount}</p>
