@@ -18,3 +18,7 @@ main {
   width: 90%;
   margin: auto;
 }
+
+button:hover {
+  opacity: 0.9;
+}

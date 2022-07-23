@@ -3,37 +3,39 @@ import { request, gql } from 'graphql-request';
 
 const initialState = {
   product: {},
-  loading: false,
+  loading: true,
   error: false,
 }
 
 export const fetchProduct = createAsyncThunk('product/fetchProduct', async (id) => {
   const query = gql`
-    product(id: ${id}) {
-      id
-      name
-      inStock
-      gallery
-      description
-      category
-      attributes {
+    {
+      product(id: "${id}") {
         id
         name
-        type
-        items {
-          displayValue
-          value
+        inStock
+        gallery
+        description
+        category
+        attributes {
           id
+          name
+          type
+          items {
+            displayValue
+            value
+            id
+          }
         }
-      }
-      prices {
-        currency {
-          label
-          symbol
+        prices {
+          currency {
+            label
+            symbol
+          }
+          amount
         }
-        amount
+        brand
       }
-      brand
     }
   `;
   const url = 'http://localhost:4000';

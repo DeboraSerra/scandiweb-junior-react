@@ -39,9 +39,10 @@ class Shop extends React.Component {
   }
 
   render() {
-    const { loading, products, name, currency } = this.props;
+    const { loading, products, name, currency, history } = this.props;
     const { target } = this.state;
-    const price = (prod) => prod.prices.find(({ currency: { label } }) => label === currency)
+    const price = (prod) => prod.prices.find(({ currency: { label } }) => label === currency);
+    console.log()
     return (
       loading ? <p className="loading">Loading</p> : (
         <>
@@ -56,6 +57,7 @@ class Shop extends React.Component {
                 onMouseLeave={ this.mouseLeave }
               >
                 <img
+                  onClick={ () => history(`/${prod.id}`) }
                   src={ prod.gallery[0] }
                   alt={ prod.name }
                   className={ prod.inStock ? style.img : style.out }

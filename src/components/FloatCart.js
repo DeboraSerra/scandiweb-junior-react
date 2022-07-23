@@ -19,6 +19,7 @@ class FloatCart extends React.Component {
     const { cart, show, currency, currencies, hideCart } = this.props;
     const price = (prod) => prod.prices.find(({ currency: { label } }) => label === currency);
     const selectedCurr = currencies.find((item) => item.label === currency).symbol;
+    console.log(cart);
     return (
       <section className={ style.back } style={{ display: show }}>
         <section className={ style.cart }>
@@ -27,8 +28,8 @@ class FloatCart extends React.Component {
             <p className={ style.amount }>{cart.reduce((acc, { amount }) => acc + amount, 0) } items</p>
           </section>
           <section className={ style.items_sect }>
-            {cart.map((prod) => (
-              <section key={ prod.id + prod.name } className={ style.item }>
+            {cart.map((prod, index) => (
+              <section key={ prod.id + prod.name + index } className={ style.item }>
                 <FloatCartProd prod={ prod } handleDecrease={ this.handleDecrease } style={ style } />
               </section>
             ))}

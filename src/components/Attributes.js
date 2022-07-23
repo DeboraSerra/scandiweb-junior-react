@@ -3,7 +3,7 @@ import React from 'react';
 class Attributes extends React.Component {
   render() {
     const { attributes: att, selected, style } = this.props;
-    const isSelected = (attId) => selected.find(({ id, item }) => id === attId);
+    const isSelected = (attId) => selected.find(({ id }) => id === attId);
     return (
       <section className={ style.att_sect }>
         <p className={ style.att_name }>{att.name}</p>

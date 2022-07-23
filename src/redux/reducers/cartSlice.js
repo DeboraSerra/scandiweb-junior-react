@@ -9,10 +9,10 @@ const cartReducer = createSlice({
   initialState,
   reducers: {
     addItem: (state, action) => {
-      const index = state.cart.findIndex((item) => item.id === action.payload.id)
-      if (index !== -1 && state.cart[index].attributesSelected
-        .every(({ id, item }) => action.payload.attributesSelected
-          .find((att) => att.id === id && att.item === item))) {
+      const index = state.cart.findIndex((it) => it.id === action.payload.id
+        && it.attributesSelected.every(({ id, item }) => action.payload.attributesSelected
+          .find((att) => att.id === id && att.item === item)))
+      if (index !== -1) {
         const amount = state.cart[index].amount;
         state.cart[index] = { ...state.cart[index], amount: amount + action.payload.amount }
       } else state.cart.push(action.payload);
