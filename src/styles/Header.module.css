@@ -23,6 +23,7 @@
   font-size: 16px;
   cursor: pointer;
   color: var(--secondary);
+  font-weight: 400;
 }
 
 .link_box, .active {
@@ -34,6 +35,11 @@
 
 .active {
   border-bottom: 2px solid var(--accent);
+}
+
+.active .link {
+  color: var(--accent);
+  font-weight: 600;
 }
 
 .logo {
