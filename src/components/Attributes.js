@@ -1,9 +1,8 @@
 import React from 'react';
-import style from '../styles/FloatCart.module.css';
 
 class Attributes extends React.Component {
   render() {
-    const { attributes: att, selected } = this.props;
+    const { attributes: att, selected, style } = this.props;
     const isSelected = (attId) => selected.find(({ id, item }) => id === attId);
     return (
       <section className={ style.att_sect }>
@@ -14,14 +13,14 @@ class Attributes extends React.Component {
               {att.name === 'Color'
                 ? (
                   <p
-                    key={ item.id }
+                    key={ item.id + item.value }
                     style={{ backgroundColor: item.value }}
                     className={ isSelected(att.id).item === item.id ? style.color_selected : style.color_att }
                   ></p>
                 ) : (
                   <p
                     className={ isSelected(att.id).item === item.id ? style.att_selected : style.att }
-                    key={ item.id }
+                    key={ item.id + item.value }
                   >
                     {item.value}
                   </p>

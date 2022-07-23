@@ -14,7 +14,7 @@ class FloatCartProd extends React.Component {
           <p className={ style.name }>{prod.name}</p>
           <p className={ style.price }>{price(prod).currency.symbol + ' ' + price(prod).amount}</p>
           {prod.attributes.map((att) => (
-            <Attributes key={ att.id + att.name } attributes={ att } selected={ prod.attributesSelected } />
+            <Attributes style={ style } key={ att.id + att.name } attributes={ att } selected={ prod.attributesSelected } />
           ))}
         </section>
         <section className={ style.amount_sect }>

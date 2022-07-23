@@ -28,7 +28,7 @@ class FloatCart extends React.Component {
           </section>
           <section className={ style.items_sect }>
             {cart.map((prod) => (
-              <section key={ prod.id } className={ style.item }>
+              <section key={ prod.id + prod.name } className={ style.item }>
                 <FloatCartProd prod={ prod } handleDecrease={ this.handleDecrease } style={ style } />
               </section>
             ))}

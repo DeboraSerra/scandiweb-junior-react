@@ -1,9 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Attributes from './Attributes';
-import { increase } from '../redux/reducers/cartSlice';
+import { increase, decrease, removeItem } from '../redux/reducers/cartSlice';
+import ProdGallery from './ProdGallery';
 
 class CartProd extends React.Component {
+  handleDecrease = (prod) => {
+    const { dispatch } = this.props;
+    if (prod.amount > 1) {
+      dispatch(decrease(prod))
+    } else {
+      dispatch(removeItem(prod))
+    }
+  }
+
   render() {
     const { prod, dispatch, handleDecrease, currency, style } = this.props;
     const price = (prod) => prod.prices.find(({ currency: { label } }) => label === currency);
@@ -14,7 +24,7 @@ class CartProd extends React.Component {
           <p className={ style.name }>{prod.name}</p>
           <p className={ style.price }>{price(prod).currency.symbol + ' ' + price(prod).amount}</p>
           {prod.attributes.map((att) => (
-            <Attributes key={ att.id + att.name } attributes={ att } selected={ prod.attributesSelected } />
+            <Attributes style={ style } key={ att.id + att.name } attributes={ att } selected={ prod.attributesSelected } />
           ))}
         </section>
         <section className={ style.amount_sect }>
@@ -22,7 +32,9 @@ class CartProd extends React.Component {
           <p className={ style.amount_item }>{prod.amount}</p>
           <button type="button" className={ style.amount_btn } onClick={ () => handleDecrease(prod) }>-</button>
         </section>
-        <img className={ style.img_cart } src={prod.gallery[0]} alt={prod.brand + ' ' + prod.name} />
+        <section>
+          <ProdGallery images={ prod.gallery } name={ prod.name } style={ style } />
+        </section>
       </>
     );
   }

@@ -10,7 +10,9 @@ const cartReducer = createSlice({
   reducers: {
     addItem: (state, action) => {
       const index = state.cart.findIndex((item) => item.id === action.payload.id)
-      if (index !== -1 && state.cart[index].selectedAttributes.every(({ value }) => action.payload.selectedAttributes.includes(value))) {
+      if (index !== -1 && state.cart[index].attributesSelected
+        .every(({ id, item }) => action.payload.attributesSelected
+          .find((att) => att.id === id && att.item === item))) {
         const amount = state.cart[index].amount;
         state.cart[index] = { ...state.cart[index], amount: amount + action.payload.amount }
       } else state.cart.push(action.payload);
@@ -20,14 +22,22 @@ const cartReducer = createSlice({
       state.cart = newCart;
     },
     increase: (state, action) => {
-      const index = state.cart.findIndex((item) => item.id === action.payload.id)
+      const index = state.cart
+        .findIndex((item) => item.id === action.payload.id
+          && item.name === action.payload.name
+          && item.attributesSelected.every(({ id, item }) => action.payload.attributesSelected
+            .find((att) => att.id === id && att.item === item)))
       if (index !== -1) {
         const amount = state.cart[index].amount;
         state.cart[index] = { ...state.cart[index], amount: amount + 1 }
       }
     },
     decrease: (state, action) => {
-      const index = state.cart.findIndex((item) => item.id === action.payload.id)
+      const index = state.cart
+        .findIndex((item) => item.id === action.payload.id
+          && item.name === action.payload.name
+          && item.attributesSelected.every(({ id, item }) => action.payload.attributesSelected
+          .find((att) => att.id === id && att.item === item)))
       if (index !== -1) {
         const amount = state.cart[index].amount;
         state.cart[index] = { ...state.cart[index], amount: amount - 1 }
