@@ -19,7 +19,7 @@ class Attributes extends React.Component {
                   ></p>
                 ) : (
                   <p
-                    className={ isSelected(att.id).item === item.id ? style.att_selected : style.att }
+                    className={ isSelected(att.id).item === item.value ? style.att_selected : style.att }
                     key={ item.id + item.value }
                   >
                     {item.value}

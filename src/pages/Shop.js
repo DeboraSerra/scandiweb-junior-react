@@ -33,7 +33,7 @@ class Shop extends React.Component {
   handleClick = (prod) => {
     const { dispatch } = this.props;
     if (prod.inStock) {
-      const attributesSelected = prod.attributes.map(({ id, items }) => ({ id, item: items[0].id }));
+      const attributesSelected = prod.attributes.map(({ id, items }) => ({ id, item: items[0].value }));
       dispatch(addItem({ ...prod,  attributesSelected, amount: 1 }));
     }
   }
@@ -42,7 +42,6 @@ class Shop extends React.Component {
     const { loading, products, name, currency, history } = this.props;
     const { target } = this.state;
     const price = (prod) => prod.prices.find(({ currency: { label } }) => label === currency);
-    console.log()
     return (
       loading ? <p className="loading">Loading</p> : (
         <>

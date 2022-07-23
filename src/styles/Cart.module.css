@@ -99,6 +99,7 @@
 .color_att, .color_selected {
   width: 32px;
   height: 32px;
+  box-shadow: 0 0 5px var(--secondary);
 }
 
 .color_sect {
