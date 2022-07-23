@@ -1,14 +1,26 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Attributes from './Attributes';
+import { Link } from 'react-router-dom';
 import style from '../styles/FloatCart.module.css';
+import { decrease, removeItem } from '../redux/reducers/cartSlice';
+import FloatCartProd from './FloatCartProd';
 
 class FloatCart extends React.Component {
+
+  handleDecrease = (prod) => {
+    const { dispatch } = this.props;
+    if (prod.amount > 1) {
+      dispatch(decrease(prod))
+    } else {
+      dispatch(removeItem(prod))
+    }
+  }
   render() {
-    const { cart, currency, mouseEnter, mouseLeave } = this.props;
+    const { cart, show, currency, currencies, hideCart } = this.props;
     const price = (prod) => prod.prices.find(({ currency: { label } }) => label === currency);
+    const selectedCurr = currencies.find((item) => item.label === currency).symbol;
     return (
-      <section className={ style.back } onMouseEnter={ mouseEnter } onMouseLeave={ mouseLeave }>
+      <section className={ style.back } style={{ display: show }}>
         <section className={ style.cart }>
           <section className={ style.cart_title }>
             <h3 className={ style.title }>My Bag</h3>
@@ -17,22 +29,19 @@ class FloatCart extends React.Component {
           <section className={ style.items_sect }>
             {cart.map((prod) => (
               <section key={ prod.id } className={ style.item }>
-                <section className={ style.item_info }>
-                  <p className={ style.brand }>{prod.brand}</p>
-                  <p className={ style.name }>{prod.name}</p>
-                  <p className={ style.price }>{price(prod).currency.symbol + ' ' + price(prod).amount}</p>
-                  {prod.attributes.map((att) => (
-                    <Attributes key={ att.id } attributes={ att } selected={ prod.attributesSelected } />
-                  ))}
-                </section>
-                <section className={ style.amount_sect }>
-                  <button type="button" className={ style.amount_btn }>-</button>
-                  <p className={ style.amount_item }>{prod.amount}</p>
-                  <button type="button" className={ style.amount_btn }>+</button>
-                </section>
-                <img className={ style.img_cart } src={prod.gallery[0]} alt={prod.brand + ' ' + prod.name} />
+                <FloatCartProd prod={ prod } handleDecrease={ this.handleDecrease } style={ style } />
               </section>
             ))}
+          </section>
+          <section className={ style.price_sect}>
+              <p className={ style.price_title }>Total</p>
+              <p className={ style.price_value }>
+                {selectedCurr + cart.reduce((acc, item) => acc + (price(item).amount * item.amount),0).toFixed(2)}
+              </p>
+          </section>
+          <section className={ style.btn_sect }>
+            <Link to="/cart" className={ style.btn_to_cart } onClick={ hideCart }>VIEW BAG</Link>
+            <Link to="/checkout" className={ style.btn_checkout }>CHECK OUT</Link>
           </section>
         </section>
       </section>
@@ -43,6 +52,7 @@ class FloatCart extends React.Component {
 const mapStateToProps = (state) => ({
   cart: state.cart.cart,
   currency: state.currencies.selectedCurr,
+  currencies: state.currencies.currencies,
 })
 
 export default connect(mapStateToProps)(FloatCart);

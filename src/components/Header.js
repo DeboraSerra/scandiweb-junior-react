@@ -7,6 +7,7 @@ import cartImg from '../images/Empty-cart.svg';
 import style from '../styles/Header.module.css';
 import { fetchCategory, selectCategory } from '../redux/reducers/categorySlice';
 import FloatCart from './FloatCart';
+import { Link } from 'react-router-dom';
 
 class Header extends React.Component {
   constructor() {
@@ -46,17 +47,10 @@ class Header extends React.Component {
     })
   }
 
-  showCart = () => {
+  handleCart = () => {
     this.setState((prevSt) => ({
       ...prevSt,
-      show: true,
-    }))
-  }
-
-  hideCart = () => {
-    this.setState((prevSt) => ({
-      ...prevSt,
-      show: false,
+      show: prevSt.show === 'block' ? 'none' : 'block',
     }))
   }
 
@@ -70,19 +64,19 @@ class Header extends React.Component {
           <header className={ style.header }>
             <nav className={ style.nav }>
               <section className={ location === 'all' ? style.active : style.link_box }>
-                <button type="button" className={ style.link } onClick={this.handleClick}>
+                <Link to="/" type="button" className={ style.link } onClick={this.handleClick}>
                   ALL
-                </button>
+                </Link>
               </section>
               <section className={ location === 'clothes' ? style.active : style.link_box }>
-                <button type="button" className={ style.link } onClick={this.handleClick}>
+                <Link to="/" type="button" className={ style.link } onClick={this.handleClick}>
                   CLOTHES
-                </button>
+                </Link>
               </section>
               <section className={ location === 'tech' ? style.active : style.link_box }>
-                <button type="button" className={ style.link } onClick={this.handleClick}>
+                <Link to="/" type="button" className={ style.link } onClick={this.handleClick}>
                   TECH
-                </button>
+                </Link>
               </section>
             </nav>
             <img className={ style.logo } src={ logo } alt="Brand icon" />
@@ -92,16 +86,16 @@ class Header extends React.Component {
                   <option key={ label } value={ label }>{symbol}</option>
                 ))}
               </select>
-              <section className={ style.cart } onMouseEnter={this.showCart} onMouseLeave={this.hideCart}>
+              <section className={ style.cart } onClick={ this.handleCart }>
                 <img src={ cartImg } alt="Cart icon" />
                 {cart !== 0 && (
                   <section className={ style.amount }>
-                    {cart.reduce((acc, { amount }) => acc + amount, 0) }
+                    {cart.reduce((acc, { amount }) => acc + amount, 0)}
                   </section>
                 )}
               </section>
             </section>
-            {show && <FloatCart mouseEnter={ this.showCart } mouseLeave={ this.hideCart } />}
+            {show && <FloatCart show={ show } hideCart={ this.handleCart } />}
           </header>
         )
     )
@@ -115,7 +109,7 @@ Header.propTypes = {
     symbol: PropTypes.string,
   })).isRequired,
   loading: PropTypes.bool.isRequired,
-  cart: PropTypes.number.isRequired,
+  cart: PropTypes.array.isRequired,
 }
 
 const mapStateToProps = (state) => ({

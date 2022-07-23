@@ -10,8 +10,8 @@
 
 .cart {
   background-color: var(--main);
-  width: 325px;
-  min-height: 677px;
+  width: 360px;
+  height: 677px;
   position: absolute;
   top: 0;
   right: 72px;
@@ -45,18 +45,31 @@
   height: 190px;
   width: 100%;
   flex-grow: 1;
+  overflow-y: scroll;
+  padding: 2px;
+}
+
+.items_sect::-webkit-scrollbar {
+  width: 1px;
 }
 
 .item {
   display: flex;
+  height: 190px;
   justify-content: space-between;
-  margin: 20px 0;
+  margin: 16px 0;
 }
 
 .item_info {
   font-size: 16px;
   font-weight: 300;
   line-height: 25.6px;
+  overflow-y: scroll;
+  margin-right: 8px;
+}
+
+.item_info::-webkit-scrollbar {
+  width: 1px;
 }
 
 .price {
@@ -80,7 +93,6 @@
   font-weight: 400;
   line-height: 22.4px;
   text-align: center;
-  margin: 0 8px;
   border: 1px solid var(--secondary);
 }
 
@@ -89,14 +101,94 @@
   color: var(--main);
 }
 
+.att_box {
+  margin: 0 8px;
+  overflow: hidden;
+}
+
 .color_att, .color_selected {
   width: 16px;
   height: 16px;
+}
+
+.color_sect {
+  width: 20px;
+  height: 20px;
   margin: 0 8px;
+  border: 1px solid var(--accent);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.color_selected {
+  border: 1px solid white;
+}
+
+.amount_sect {
+  width: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.amount_btn {
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--secondary);
+  background-color: transparent;
+}
+
+.amount_item {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 25.6px;
 }
 
 .img_cart {
   width: 120px;
   height: 100%;
   object-fit: cover;
+  margin-left: 8px;
+}
+
+.price_sect {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin: 8px 0;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 18px;
+}
+
+.btn_sect {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn_to_cart, .btn_checkout {
+  width: 150px;
+  height: 45px;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 16.8px;
+  margin: 16px 0;
+}
+
+.btn_to_cart {
+  border: 1px solid var(--secondary);
+  color: var(--secondary);
+}
+
+.btn_checkout {
+  color: var(--main);
+  background-color: var(--accent);
 }
