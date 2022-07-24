@@ -92,6 +92,7 @@
   justify-content: center;
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 .cart_img {

@@ -1,10 +1,11 @@
 .back {
   position: absolute;
-  width: 100%;
-  min-height: 92%;
+  width: 111.5%;
+  height: 1000px;
+  /* min-height: 92%; */
   background-color: rgba(57, 55, 72, 0.22);
   top: 78px;
-  left: 0;
+  left: -6%;
   z-index: 1;
 }
 
