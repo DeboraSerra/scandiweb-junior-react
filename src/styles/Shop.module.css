@@ -34,6 +34,7 @@
   width: 354px;
   height: 350px;
   object-fit: cover;
+  cursor: pointer;
 }
 
 .out_msg {
@@ -50,6 +51,7 @@
   font-weight: 400;
   width: 100%;
   height: 100%;
+  cursor: pointer;
 }
 
 .card_name {

@@ -58,6 +58,7 @@ class Header extends React.Component {
     this.setState((prevSt) => ({
       ...prevSt,
       show: prevSt.show === 'block' ? 'none' : 'block',
+      showCurr: false,
     }))
   }
 
