@@ -45,7 +45,7 @@ class Shop extends React.Component {
                   alt={ prod.name }
                   className={ prod.inStock ? style.img : style.out }
                 />
-                {!prod.inStock && <p className={ style.out_msg }>OUT OF STOCK</p>}
+                {!prod.inStock && <p onClick={ () => history(`/${prod.id}`) } className={ style.out_msg }>OUT OF STOCK</p>}
                 <h2 className={ style.card_name }>
                   {prod.brand + ' ' + prod.name}
                 </h2>
