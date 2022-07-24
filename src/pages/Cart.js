@@ -56,6 +56,7 @@ Cart.propTypes = {
     symbol: PropTypes.string,
   }).isRequired,
   currency: PropTypes.string.isRequired,
+  history: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => ({

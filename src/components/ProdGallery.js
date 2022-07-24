@@ -49,6 +49,8 @@ ProdGallery.propTypes = {
   images: PropTypes.arrayOf(PropTypes.string).isRequired,
   name: PropTypes.string.isRequired,
   style: PropTypes.any.isRequired,
+  history: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export default ProdGallery;

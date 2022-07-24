@@ -60,6 +60,7 @@ CartProd.propTypes = {
   handleDecrease: PropTypes.func.isRequired,
   currency: PropTypes.string,
   style: PropTypes.any.isRequired,
+  history: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
