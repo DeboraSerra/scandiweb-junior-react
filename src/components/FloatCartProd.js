@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Attributes from './Attributes';
 import { increase } from '../redux/reducers/cartSlice';
@@ -28,8 +29,29 @@ class FloatCartProd extends React.Component {
   }
 }
 
+FloatCartProd.propTypes = {
+  prod: PropTypes.shape({
+    brand: PropTypes.string,
+    name: PropTypes.string,
+    amount: PropTypes.number,
+    prices: PropTypes.arrayOf(PropTypes.shape({
+      currency: PropTypes.shape({
+        label: PropTypes.string,
+        symbol: PropTypes.string,
+      }),
+      amount: PropTypes.number,
+    })),
+    gallery: PropTypes.arrayOf(PropTypes.string),
+    attributes: PropTypes.arrayOf(PropTypes.object),
+  }).isRequired,
+  dispatch: PropTypes.func.isRequired,
+  handleDecrease: PropTypes.func.isRequired,
+  currency: PropTypes.string.isRequired,
+  style: PropTypes.any.isRequired,
+};
+
 const mapStateToProps = (state) => ({
   currency: state.currencies.selectedCurr,
-})
+});
 
 export default connect(mapStateToProps)(FloatCartProd);

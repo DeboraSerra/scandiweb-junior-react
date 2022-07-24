@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import CartProd from '../components/CartProd';
@@ -31,6 +32,30 @@ class Cart extends React.Component {
       </section>
     );
   }
+
+
+}
+
+Cart.propTypes = {
+  cart: PropTypes.arrayOf(PropTypes.shape({
+    brand: PropTypes.string,
+    name: PropTypes.string,
+    amount: PropTypes.number,
+    prices: PropTypes.arrayOf(PropTypes.shape({
+      currency: PropTypes.shape({
+        label: PropTypes.string,
+        symbol: PropTypes.string,
+      }),
+      amount: PropTypes.number,
+    })),
+    gallery: PropTypes.arrayOf(PropTypes.string),
+    attributes: PropTypes.arrayOf(PropTypes.object),
+  }).isRequired),
+  currencies: PropTypes.shape({
+    label: PropTypes.string,
+    symbol: PropTypes.string,
+  }).isRequired,
+  currency: PropTypes.string.isRequired,
 }
 
 const mapStateToProps = (state) => ({

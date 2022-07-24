@@ -91,22 +91,22 @@ const mapStateToProps = (state) => ({
   currency: state.currencies.selectedCurr,
 })
 
-// Shop.propTypes = {
-//   name: PropTypes.string.isRequired,
-//   products: PropTypes.arrayOf(PropTypes.shape({
-//     id: PropTypes.string,
-//     gallery: PropTypes.arrayOf(PropTypes.string),
-//     name: PropTypes.string,
-//     prices: PropTypes.arrayOf(PropTypes.shape({
-//       currency: PropTypes.any.shape({
-//         label: PropTypes.string,
-//         symbol: PropTypes.string,
-//       }),
-//       amount: PropTypes.number,
-//     })),
-//   })).isRequired,
-//   loading: PropTypes.bool.isRequired,
-//   currency: PropTypes.string.isRequired,
-// };
+Shop.propTypes = {
+  name: PropTypes.string.isRequired,
+  products: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+    gallery: PropTypes.arrayOf(PropTypes.string),
+    name: PropTypes.string,
+    prices: PropTypes.arrayOf(PropTypes.shape({
+      currency: PropTypes.shape({
+        label: PropTypes.string,
+        symbol: PropTypes.string,
+      }),
+      amount: PropTypes.number,
+    })),
+  })).isRequired,
+  loading: PropTypes.bool.isRequired,
+  currency: PropTypes.string.isRequired,
+};
 
 export default connect(mapStateToProps)(Shop);

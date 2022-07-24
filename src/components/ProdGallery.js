@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import next from '../images/next.svg';
 import prev from '../images/prev.svg';
 
@@ -43,5 +44,11 @@ class ProdGallery extends React.Component {
     )
   }
 }
+
+ProdGallery.propTypes = {
+  images: PropTypes.arrayOf(PropTypes.string).isRequired,
+  name: PropTypes.string.isRequired,
+  style: PropTypes.any.isRequired,
+};
 
 export default ProdGallery;

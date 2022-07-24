@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class Attributes extends React.Component {
   render() {
@@ -33,5 +34,21 @@ class Attributes extends React.Component {
     );
   }
 }
+
+Attributes.propTypes = {
+  attributes: PropTypes.shape({
+    name: PropTypes.string,
+    items: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.string,
+      value: PropTypes.string,
+    })),
+  }).isRequired,
+  selected: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+    value: PropTypes.string,
+  })).isRequired,
+  style: PropTypes.any.isRequired,
+};
+
 
 export default Attributes;

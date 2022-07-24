@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import AttDetail from '../components/AttDetail';
 import DetailGallery from '../components/DetailGallery';
@@ -63,6 +64,26 @@ class ProductDetail extends React.Component {
       )
     );
   }
+}
+
+ProductDetail.propTypes = {
+  product: PropTypes.shape({
+    brand: PropTypes.string,
+    name: PropTypes.string,
+    amount: PropTypes.number,
+    prices: PropTypes.arrayOf(PropTypes.shape({
+      currency: PropTypes.shape({
+        label: PropTypes.string,
+        symbol: PropTypes.string,
+      }),
+      amount: PropTypes.number,
+    })),
+    gallery: PropTypes.arrayOf(PropTypes.string),
+    attributes: PropTypes.arrayOf(PropTypes.object),
+  }).isRequired,
+  currency: PropTypes.string.isRequired,
+  loading: PropTypes.bool.isRequired,
+  dispatch: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => ({

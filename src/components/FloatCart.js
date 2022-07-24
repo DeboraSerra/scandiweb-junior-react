@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import style from '../styles/FloatCart.module.css';
+import PropTypes from 'prop-types';
 import { decrease, removeItem } from '../redux/reducers/cartSlice';
 import FloatCartProd from './FloatCartProd';
 
@@ -19,7 +20,6 @@ class FloatCart extends React.Component {
     const { cart, show, currency, currencies, hideCart } = this.props;
     const price = (prod) => prod.prices.find(({ currency: { label } }) => label === currency);
     const selectedCurr = currencies.find((item) => item.label === currency).symbol;
-    console.log(cart);
     return (
       <section className={ style.back } style={{ display: show }}>
         <section className={ style.cart }>
@@ -48,6 +48,30 @@ class FloatCart extends React.Component {
       </section>
     );
   }
+}
+
+FloatCart.propTypes = {
+  cart: PropTypes.arrayOf(PropTypes.shape({
+    brand: PropTypes.string,
+    name: PropTypes.string,
+    amount: PropTypes.number,
+    prices: PropTypes.arrayOf(PropTypes.shape({
+      currency: PropTypes.shape({
+        label: PropTypes.string,
+        symbol: PropTypes.string,
+      }),
+      amount: PropTypes.number,
+    })),
+    gallery: PropTypes.arrayOf(PropTypes.string),
+    attributes: PropTypes.arrayOf(PropTypes.object),
+  }).isRequired),
+  show: PropTypes.string.isRequired,
+  currency: PropTypes.string.isRequired,
+  currencies: PropTypes.shape({
+    label: PropTypes.string,
+    symbol: PropTypes.string,
+  }).isRequired,
+  hideCart: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => ({

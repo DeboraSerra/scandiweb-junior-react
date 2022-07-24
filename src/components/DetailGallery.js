@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class DetailGallery extends React.Component {
   constructor() {
@@ -31,5 +32,12 @@ class DetailGallery extends React.Component {
     )
   }
 }
+
+DetailGallery.propTypes = {
+  images: PropTypes.arrayOf(PropTypes.string).isRequired,
+  name: PropTypes.string.isRequired,
+  style: PropTypes.any.isRequired,
+  inStock: PropTypes.bool.isRequired,
+};
 
 export default DetailGallery;

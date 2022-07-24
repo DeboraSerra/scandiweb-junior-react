@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class AttDetail extends React.Component {
   render() {
@@ -35,5 +36,21 @@ class AttDetail extends React.Component {
     );
   }
 }
+
+AttDetail.propTypes = {
+  attributes: PropTypes.shape({
+    name: PropTypes.string,
+    items: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.string,
+      value: PropTypes.string,
+    })),
+  }).isRequired,
+  selected: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+    value: PropTypes.string,
+  })).isRequired,
+  selectAtt: PropTypes.func.isRequired,
+  style: PropTypes.any.isRequired,
+};
 
 export default AttDetail;
