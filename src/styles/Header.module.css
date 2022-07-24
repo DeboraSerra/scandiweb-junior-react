@@ -6,12 +6,11 @@
   padding: 12px;
   height: 80px;
   align-items: center;
+  position: relative;
 }
 
 .nav {
-  width: 20%;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   height: 100%;
 }
@@ -28,6 +27,7 @@
 
 .link_box, .active {
   display: flex;
+  margin-right: 32px;
   align-items: center;
   justify-content: center;
   height: 100%;
@@ -45,42 +45,64 @@
 .logo {
   height: 41px;
   width: 41px;
-  align-self: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .select_cart {
   display: flex;
-  width: 8%;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   height: 100%;
+  width: 6%;
 }
 
 .select {
-  border: none;
-  background-color: transparent;
+  font-size: 18px;
+  line-height: 28.8px;
+  font-weight: 500;
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 28.8px;
+  justify-content: space-between;
+  cursor: pointer;
+  position: relative;
+}
+
+.arrow {
+  height: 12px;
+  width: 20px;
+  margin: 0 5px 0 10px;
+}
+
+.curr_table {
+  position: absolute;
+}
+
+.curr_row {
+  cursor: pointer;
+}
+
+.curr_row:nth-of-type(even) {
+  background-color: #eee;
 }
 
 .cart {
   position: relative;
-  height: 120%;
-  flex-grow: 1;
   justify-content: center;
-  width: 20px;
   display: flex;
   align-items: center;
 }
 
+.cart_img {
+  height: 30px;
+  width: 30px;
+}
+
 .amount {
   position: absolute;
-  top: 15px;
-  right: 25px;
+  top: -6px;
+  right: -10px;
   background-color: var(--secondary);
   color: var(--main);
   border-radius: 50%;

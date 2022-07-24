@@ -4,18 +4,23 @@ import { fetchCurrencies, selectCurr } from '../redux/reducers/currencySlice';
 import { connect } from 'react-redux';
 import logo from '../images/Brand-iconbrand_icon.svg';
 import cartImg from '../images/Empty-cart.svg';
+import up from '../images/up.svg';
+import down from '../images/down.svg';
 import style from '../styles/Header.module.css';
 import { fetchCategory, selectCategory } from '../redux/reducers/categorySlice';
 import FloatCart from './FloatCart';
 import { Link } from 'react-router-dom';
+import Currencies from './Currencies';
 
 class Header extends React.Component {
   constructor() {
     super();
     this.state = {
       selected: 'USD',
+      selectSymbol: '$',
       location: 'all',
       show: false,
+      showCurr: false,
     }
   }
   async componentDidMount() {
@@ -25,10 +30,12 @@ class Header extends React.Component {
     await dispatch(selectCategory({ category:  'all' }));
   }
 
-  handleChange = ({ target: { value } }) => {
+  handleChange = ({ target: { innerText: value } }) => {
     this.setState((prevSt) => ({
       ...prevSt,
-      selected: value,
+      selected: value.split(' ')[1],
+      selectSymbol: value.split(' ')[0],
+      showCurr: false,
     }), () => {
       const { selected } = this.state;
       const { dispatch } = this.props;
@@ -54,9 +61,16 @@ class Header extends React.Component {
     }))
   }
 
+  showCurrTable = () => {
+    this.setState((prevSt) => ({
+      ...prevSt,
+      showCurr: !prevSt.showCurr,
+    }))
+  }
+
   render() {
     const { currencies, loading, cart } = this.props;
-    const { selected, location, show } = this.state;
+    const { selected, location, show, showCurr, selectSymbol } = this.state;
     return (
       loading
         ? <p className="loading">Loading</p>
@@ -81,13 +95,17 @@ class Header extends React.Component {
             </nav>
             <img className={ style.logo } src={ logo } alt="Brand icon" />
             <section className={ style.select_cart }>
-              <select  className={ style.select } name="currency" onChange={ this.handleChange } value={ selected }>
-                {currencies?.map(({ label, symbol }) => (
-                  <option key={ label } value={ label }>{symbol}</option>
-                ))}
-              </select>
+              <section className={ style.select_sect }>
+                <section  className={ style.select } onClick={ this.showCurrTable }>
+                  <p>{selectSymbol}</p>
+                  <img className={ style.arrow } src={ showCurr ? up : down } alt={ showCurr ? 'Close currencies' : 'Select currency' } />
+                </section>
+                {showCurr && (
+                  <Currencies changeCurr={ this.handleChange } />
+                )}
+              </section>
               <section className={ style.cart } onClick={ this.handleCart }>
-                <img src={ cartImg } alt="Cart icon" />
+                <img className={ style.cart_img } src={ cartImg } alt="Cart icon" />
                 {cart !== 0 && (
                   <section className={ style.amount }>
                     {cart.reduce((acc, { amount }) => acc + amount, 0)}
