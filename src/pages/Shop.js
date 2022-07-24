@@ -12,22 +12,7 @@ class Shop extends React.Component {
       loading: props.loading,
       products: props.products.products,
       name: props.products.name,
-      target: '',
     }
-  }
-
-  mouseEnter = ({ target: { id } }) => {
-    this.setState((prevSt) => ({
-      ...prevSt,
-      target: id,
-    }))
-  }
-
-  mouseLeave = () => {
-    this.setState((prevSt) => ({
-      ...prevSt,
-      target: '',
-    }))
   }
 
   handleClick = (prod) => {
@@ -40,7 +25,6 @@ class Shop extends React.Component {
 
   render() {
     const { loading, products, name, currency, history } = this.props;
-    const { target } = this.state;
     const price = (prod) => prod.prices.find(({ currency: { label } }) => label === currency);
     return (
       loading ? <p className="loading">Loading</p> : (
@@ -70,7 +54,7 @@ class Shop extends React.Component {
                 </p>
                 <button
                   type="button"
-                  className={ target === prod.id ? style.cart_btn : style.hide_btn }
+                  className={ style.cart_btn }
                   onClick={ () => this.handleClick(prod) }
                 >
                   <img className={ style.card_cart } src={ cartImg } alt="Add to cart" />

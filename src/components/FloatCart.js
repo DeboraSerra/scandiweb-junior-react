@@ -64,13 +64,13 @@ FloatCart.propTypes = {
     })),
     gallery: PropTypes.arrayOf(PropTypes.string),
     attributes: PropTypes.arrayOf(PropTypes.object),
-  }).isRequired),
+  })).isRequired,
   show: PropTypes.string.isRequired,
   currency: PropTypes.string.isRequired,
-  currencies: PropTypes.shape({
+  currencies: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string,
     symbol: PropTypes.string,
-  }).isRequired,
+  })).isRequired,
   hideCart: PropTypes.func.isRequired
 }
 

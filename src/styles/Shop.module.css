@@ -26,6 +26,10 @@
   box-shadow: 0 4px 35px rgba(167, 172, 176, 0.19);
 }
 
+.card:hover .cart_btn {
+  display: flex;
+}
+
 .img, .out {
   width: 354px;
   height: 350px;
@@ -73,7 +77,7 @@
   position: absolute;
   right: 31px;
   bottom: 46px;
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   cursor: pointer;

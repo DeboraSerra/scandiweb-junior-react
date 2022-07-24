@@ -10,18 +10,16 @@ class Attributes extends React.Component {
         <p className={ style.att_name }>{att.name}</p>
         <section className={ style.atts }>
           {att.items.map((item) => (
-            <section className={ isSelected(att.id).item === item.id && att.name === 'Color' ? style.color_sect : style.att_box }>
+            <section key={ item.id + item.value } className={ isSelected(att.id).item === item.id && att.name === 'Color' ? style.color_sect : style.att_box }>
               {att.name === 'Color'
                 ? (
                   <p
-                    key={ item.id + item.value }
                     style={{ backgroundColor: item.value }}
                     className={ isSelected(att.id).item === item.id ? style.color_selected : style.color_att }
                   ></p>
                 ) : (
                   <p
                     className={ isSelected(att.id).item === item.value ? style.att_selected : style.att }
-                    key={ item.id + item.value }
                   >
                     {item.value}
                   </p>
