@@ -18,8 +18,10 @@ const cartReducer = createSlice({
       } else state.cart.push(action.payload);
     },
     removeItem: (state, action) => {
-      const newCart = state.cart.filter((item) => item.id !== action.payload.id);;
-      state.cart = newCart;
+      const index = state.cart.findIndex((it) => it.id === action.payload.id
+        && it.attributesSelected.every(({ id, item }) => action.payload.attributesSelected
+          .find((att) => att.id === id && att.item === item)));
+      state.cart.splice(index, 1);
     },
     increase: (state, action) => {
       const index = state.cart

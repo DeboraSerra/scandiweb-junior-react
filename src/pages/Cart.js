@@ -7,7 +7,7 @@ import style from '../styles/Cart.module.css';
 
 class Cart extends React.Component {
   render() {
-    const { cart, currencies, currency } = this.props;
+    const { cart, currencies, currency, history } = this.props;
     const price = (prod) => prod.prices.find(({ currency: { label } }) => label === currency);
     const total = cart.reduce((acc, item) => acc + (price(item).amount * item.amount),0).toFixed(2);
     const selectedCurr = currencies.find(({ label }) => label === currency);
@@ -15,9 +15,9 @@ class Cart extends React.Component {
       <section className={ style.cart_page }>
         <h2 className={ style.cart_title }>CART</h2>
         <section className={ style.cards_sect }>
-          {cart.map((item) =>
-            <section className={ style.prod_card } key={ item.id + item.name }>
-              <CartProd prod={ item } handleDecrease={ this.handleDecrease } style={ style } />
+          {cart.map((item, index) =>
+            <section className={ style.prod_card } key={ item.id + item.name + index }>
+              <CartProd prod={ item } handleDecrease={ this.handleDecrease } style={ style } history={ history } />
             </section>
           )}
         </section>

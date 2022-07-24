@@ -25,11 +25,11 @@ class ProdGallery extends React.Component {
   }
 
   render() {
-    const { images, name, style } = this.props;
+    const { images, name, style, history, id } = this.props;
     const { index } = this.state;
     return (
       <section className={ style.gallery_sect }>
-        <img className={ style.img } src={ images[index] } alt={ name } />
+        <img className={ style.img } src={ images[index] } alt={ name } onClick={ () => history(`/${id}`)} />
         {images.length > 1 && (
           <section className={ style.gallery_btn_sect }>
             <button type="button" onClick={ this.prev } className={ style.prev_btn }>

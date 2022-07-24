@@ -16,7 +16,7 @@ class CartProd extends React.Component {
   }
 
   render() {
-    const { prod, dispatch, handleDecrease, currency, style } = this.props;
+    const { prod, dispatch, currency, style, history } = this.props;
     const price = (prod) => prod.prices.find(({ currency: { label } }) => label === currency);
     return (
       <>
@@ -31,10 +31,10 @@ class CartProd extends React.Component {
         <section className={ style.amount_sect }>
           <button type="button" className={ style.amount_btn } onClick={ () => dispatch(increase(prod)) }>+</button>
           <p className={ style.amount_item }>{prod.amount}</p>
-          <button type="button" className={ style.amount_btn } onClick={ () => handleDecrease(prod) }>-</button>
+          <button type="button" className={ style.amount_btn } onClick={ () => this.handleDecrease(prod) }>-</button>
         </section>
         <section>
-          <ProdGallery images={ prod.gallery } name={ prod.name } style={ style } />
+          <ProdGallery images={ prod.gallery } name={ prod.name } style={ style } history={ history } id={ prod.id } />
         </section>
       </>
     );

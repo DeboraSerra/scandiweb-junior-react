@@ -6,6 +6,10 @@ import Shop from '../pages/Shop';
 
 class Content extends React.Component {
   render() {
+    const WrapperCart = (props) => {
+      const history = useNavigate();
+      return <Cart { ...{ ...props, history } } />
+    }
     const WrapperShop = (props) => {
       const history = useNavigate();
       return <Shop { ...{ ...props, history } } />
@@ -18,7 +22,7 @@ class Content extends React.Component {
       <main>
         <Routes>
           <Route exact path='/' element={ <WrapperShop /> } />
-          <Route path='/cart' element={ <Cart />} />
+          <Route path='/cart' element={ <WrapperCart />} />
           <Route path='/:id' element={ <WrapperDetail />} />
         </Routes>
       </main>
