@@ -70,8 +70,8 @@ class Header extends React.Component {
   }
 
   render() {
-    const { currencies, loading, cart } = this.props;
-    const { selected, location, show, showCurr, selectSymbol } = this.state;
+    const { loading, cart } = this.props;
+    const { location, show, showCurr, selectSymbol } = this.state;
     return (
       loading
         ? <p className="loading">Loading</p>
@@ -107,7 +107,7 @@ class Header extends React.Component {
               </section>
               <section className={ style.cart } onClick={ this.handleCart }>
                 <img className={ style.cart_img } src={ cartImg } alt="Cart icon" />
-                {cart !== 0 && (
+                {cart.reduce((acc, { amount }) => acc + amount, 0) !== 0 && (
                   <section className={ style.amount }>
                     {cart.reduce((acc, { amount }) => acc + amount, 0)}
                   </section>

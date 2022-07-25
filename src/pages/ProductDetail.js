@@ -17,6 +17,12 @@ class ProductDetail extends React.Component {
   async componentDidMount() {
     const { dispatch, match: { params: { id } } } = this.props;
     await dispatch(fetchProduct(id));
+    const { product: { attributes } } = this.props;
+    const atts = attributes.map(({ id, items }) => ({ id, item: items[0].value }));
+    this.setState((prevSt) => ({
+      ...prevSt,
+      selected: atts,
+    }))
   }
 
   selectAtt = ({ target }) => {
