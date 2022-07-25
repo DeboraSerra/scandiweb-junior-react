@@ -20,4 +20,4 @@ Or you can see the dockerized version with the command:
 
 `docker-compose up -d`
 
-To this project to work an API in graphQL must be running o port 4000.
+For this project to work an API in graphQL must be running o port 4000.
