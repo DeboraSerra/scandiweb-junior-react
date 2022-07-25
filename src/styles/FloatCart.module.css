@@ -110,6 +110,7 @@
 .color_att, .color_selected {
   width: 16px;
   height: 16px;
+  border: 1px solid rgba(128, 128, 128, 0.3);
 }
 
 .color_sect {
