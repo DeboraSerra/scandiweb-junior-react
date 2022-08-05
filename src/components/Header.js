@@ -53,6 +53,8 @@ class Header extends React.Component {
     this.setState((prevSt) => ({
       ...prevSt,
       location: category,
+      show: false,
+      showCurr: false,
     }), async () => {
       const { dispatch } = this.props;
       await dispatch(fetchCategory(category));
@@ -102,7 +104,7 @@ class Header extends React.Component {
             <nav className={ style.nav }>
               {categories?.map((cat) => (
                 <section key={ cat.name } className={ location === cat.name ? style.active : style.link_box }>
-                  <Link to="/" type="button" className={ style.link } onClick={this.handleClick}>
+                  <Link to="/" type="button" className={ style.link } onClick={ this.handleClick }>
                     {cat.name.toUpperCase()}
                   </Link>
                 </section>
@@ -119,6 +121,12 @@ class Header extends React.Component {
                   isOpen={ showCurr }
                   onRequestClose={ this.hideCurrTable }
                   className={ style.currencies }
+                  style={{
+                    overlay: {
+                      backgroundColor: 'transparent',
+                    }
+                  }}
+                  shouldFocusAfterRender={ false }
                 >
                   <Currencies changeCurr={ this.handleChange } />
                 </Modal>
@@ -136,6 +144,13 @@ class Header extends React.Component {
               isOpen={ show }
               onRequestClose={ this.closeCart }
               className={ style.cart_overlay }
+              style={{
+                overlay: {
+                  backgroundColor: 'rgba(57, 55, 72, 0.22)',
+                }
+              }}
+              bodyOpenClassName={ style.back }
+              shouldFocusAfterRender={ false }
             >
               <FloatCart hideCart={ this.closeCart } />
             </Modal>
