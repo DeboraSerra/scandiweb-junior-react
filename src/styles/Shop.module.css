@@ -31,9 +31,9 @@
 }
 
 .img, .out {
-  width: 354px;
-  height: 350px;
-  object-fit: cover;
+  max-width: 354px;
+  max-height: 350px;
+  align-self: center;
   cursor: pointer;
 }
 
