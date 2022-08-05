@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import cartImg from '../images/Empty_Cart_white.svg';
 import style from '../styles/Shop.module.css';
 import { addItem } from '../redux/reducers/cartSlice';
+import Loading from '../components/Loading';
 
 class Shop extends React.Component {
   constructor(props) {
@@ -38,7 +39,7 @@ class Shop extends React.Component {
     const { loading, products, name, currency, history } = this.props;
     const price = (prod) => prod.prices.find(({ currency: { label } }) => label === currency);
     return (
-      loading ? <p className="loading">Loading</p> : (
+      loading ? <Loading /> : (
         <>
           <h2 className={ style.cat_name }>{name[0].toUpperCase() + name.slice(1)}</h2>
           <section className={ style.cards_sect }>

@@ -6,6 +6,7 @@ import DetailGallery from '../components/DetailGallery';
 import { fetchProduct } from '../redux/reducers/detailSlice';
 import { addItem } from '../redux/reducers/cartSlice';
 import style from '../styles/ProductDetail.module.css';
+import Loading from '../components/Loading';
 
 class ProductDetail extends React.Component {
   constructor() {
@@ -46,7 +47,7 @@ class ProductDetail extends React.Component {
     const { selected } = this.state;
     const price = () => prices.find(({ currency: { label } }) => label === currency);
     return (
-      loading ? <p>Loading</p> : (
+      loading ? <Loading /> : (
         <section className={ style.detail_page }>
           <DetailGallery images={ gallery } name={ name } style={ style } inStock={ inStock } />
           <section className={ style.detail_sect }>

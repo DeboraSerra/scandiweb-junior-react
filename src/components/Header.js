@@ -12,6 +12,7 @@ import FloatCart from './FloatCart';
 import { Link } from 'react-router-dom';
 import Currencies from './Currencies';
 import Modal from 'react-modal';
+import Loading from './Loading';
 
 Modal.setAppElement('#root');
 
@@ -98,7 +99,7 @@ class Header extends React.Component {
     const amount = cart.reduce((acc, { amount }) => acc + amount, 0);
     return (
       loading
-        ? <p className="loading">Loading</p>
+        ? <Loading />
         : (
           <header className={ style.header } id="header">
             <nav className={ style.nav }>
