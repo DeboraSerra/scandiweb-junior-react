@@ -9,10 +9,21 @@ class Shop extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: props.loading,
-      products: props.products.products,
-      name: props.products.name,
+      loading: true,
+      products: [],
+      name: '',
     }
+  }
+
+  componentDidMount() {
+    const { products, name } = this.props;
+    this.setState({ loading: true }, () => {
+      this.setState({
+        products,
+        name,
+        loading: false,
+      })
+    })
   }
 
   handleClick = (prod) => {
@@ -70,8 +81,8 @@ class Shop extends React.Component {
 
 const mapStateToProps = (state) => ({
   name: state.category.category,
-  products: state.category.products,
-  loading: state.category.loading,
+  products: state.category.products.products,
+  loading: state.category.loadingProd,
   currency: state.currencies.selectedCurr,
 })
 
