@@ -7,9 +7,9 @@ import cartImg from '../images/Empty-cart.svg';
 import up from '../images/up.svg';
 import down from '../images/down.svg';
 import style from '../styles/Header.module.css';
-import { fetchCategory, selectCategory } from '../redux/reducers/categorySlice';
+import { fetchCategories, fetchCategory, selectCategory } from '../redux/reducers/categorySlice';
 import FloatCart from './FloatCart';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import Currencies from './Currencies';
 
 class Header extends React.Component {
@@ -23,10 +23,12 @@ class Header extends React.Component {
       showCurr: false,
     }
   }
+
   async componentDidMount() {
     const { dispatch } = this.props;
     dispatch(fetchCurrencies());
-    await dispatch(fetchCategory());
+    await dispatch(fetchCategories());
+    await dispatch(fetchCategory('all'));
     await dispatch(selectCategory({ category:  'all' }));
   }
 
@@ -48,8 +50,9 @@ class Header extends React.Component {
     this.setState((prevSt) => ({
       ...prevSt,
       location: category,
-    }), () => {
+    }), async () => {
       const { dispatch } = this.props;
+      await dispatch(fetchCategory(category));
       dispatch(selectCategory({ category }));
     })
   }
@@ -70,7 +73,7 @@ class Header extends React.Component {
   }
 
   render() {
-    const { loading, cart } = this.props;
+    const { loading, cart, categories } = this.props;
     const { location, show, showCurr, selectSymbol } = this.state;
     return (
       loading
@@ -78,21 +81,13 @@ class Header extends React.Component {
         : (
           <header className={ style.header }>
             <nav className={ style.nav }>
-              <section className={ location === 'all' ? style.active : style.link_box }>
-                <Link to="/" type="button" className={ style.link } onClick={this.handleClick}>
-                  ALL
-                </Link>
-              </section>
-              <section className={ location === 'clothes' ? style.active : style.link_box }>
-                <Link to="/" type="button" className={ style.link } onClick={this.handleClick}>
-                  CLOTHES
-                </Link>
-              </section>
-              <section className={ location === 'tech' ? style.active : style.link_box }>
-                <Link to="/" type="button" className={ style.link } onClick={this.handleClick}>
-                  TECH
-                </Link>
-              </section>
+              {categories?.map((cat) => (
+                <section key={ cat.name } className={ location === cat.name ? style.active : style.link_box }>
+                  <Link to="/" type="button" className={ style.link } onClick={this.handleClick}>
+                    {cat.name.toUpperCase()}
+                  </Link>
+                </section>
+              ))}
             </nav>
             <img className={ style.logo } src={ logo } alt="Brand icon" />
             <section className={ style.select_cart }>
@@ -129,12 +124,16 @@ Header.propTypes = {
   })).isRequired,
   loading: PropTypes.bool.isRequired,
   cart: PropTypes.array.isRequired,
+  categories: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string,
+  })).isRequired,
 }
 
 const mapStateToProps = (state) => ({
   currencies: state.currencies.currencies,
   loading: state.currencies.loading,
   cart: state.cart.cart,
+  categories: state.category.allCategories,
 })
 
 export default connect(mapStateToProps)(Header);
