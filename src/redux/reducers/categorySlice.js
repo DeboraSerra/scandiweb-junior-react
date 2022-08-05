@@ -6,9 +6,10 @@ const url = 'http://localhost:4000';
 const initialState = {
   allCategories: [],
   category: 'all',
-  products: [],
+  products: { products: [] },
   allProducts: [],
   loading: true,
+  loadingProd: true,
 }
 
 export const fetchCategories = createAsyncThunk('category/fetchCategories', async () => {
@@ -23,10 +24,10 @@ export const fetchCategories = createAsyncThunk('category/fetchCategories', asyn
   return result.categories;
 })
 
-export const fetchCategory = createAsyncThunk('category/fetchCategory', async () => {
+export const fetchCategory = createAsyncThunk('category/fetchCategory', async (name) => {
   const query = gql`
     {
-      categories {
+      category(input: { title: "${name}" }) {
         name
         products {
           id
@@ -58,7 +59,7 @@ export const fetchCategory = createAsyncThunk('category/fetchCategory', async ()
     }
   `
   const result = await request(url, query);
-  return result.categories;
+  return result.category;
 })
 
 const categoryReducer = createSlice({
@@ -67,7 +68,6 @@ const categoryReducer = createSlice({
   reducers: {
     selectCategory: (state, action) => {
       state.category = action.payload.category;
-      state.products = state.allProducts.find(({ name }) => name === action.payload.category).products;
     }
   },
   extraReducers: (builder) => {
@@ -80,11 +80,11 @@ const categoryReducer = createSlice({
         state.loading = false;
       })
       .addCase(fetchCategory.pending, (state) => {
-        state.loading = true;
+        state.loadingProd = true;
       })
       .addCase(fetchCategory.fulfilled, (state, action) => {
-        state.allProducts = action.payload;
-        state.loading = false;
+        state.products = action.payload;
+        state.loadingProd = false;
       })
   }
 })
