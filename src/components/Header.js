@@ -9,8 +9,11 @@ import down from '../images/down.svg';
 import style from '../styles/Header.module.css';
 import { fetchCategories, fetchCategory, selectCategory } from '../redux/reducers/categorySlice';
 import FloatCart from './FloatCart';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Currencies from './Currencies';
+import Modal from 'react-modal';
+
+Modal.setAppElement('#root');
 
 class Header extends React.Component {
   constructor() {
@@ -60,8 +63,15 @@ class Header extends React.Component {
   handleCart = () => {
     this.setState((prevSt) => ({
       ...prevSt,
-      show: prevSt.show === 'block' ? 'none' : 'block',
+      show: !prevSt.show,
       showCurr: false,
+    }))
+  }
+
+  closeCart = () => {
+    this.setState((prevSt) => ({
+      ...prevSt,
+      show: false,
     }))
   }
 
@@ -69,17 +79,26 @@ class Header extends React.Component {
     this.setState((prevSt) => ({
       ...prevSt,
       showCurr: !prevSt.showCurr,
+      show: false,
+    }))
+  }
+
+  hideCurrTable = () => {
+    this.setState((prevSt) => ({
+      ...prevSt,
+      showCurr: false,
     }))
   }
 
   render() {
     const { loading, cart, categories } = this.props;
     const { location, show, showCurr, selectSymbol } = this.state;
+    const amount = cart.reduce((acc, { amount }) => acc + amount, 0);
     return (
       loading
         ? <p className="loading">Loading</p>
         : (
-          <header className={ style.header }>
+          <header className={ style.header } id="header">
             <nav className={ style.nav }>
               {categories?.map((cat) => (
                 <section key={ cat.name } className={ location === cat.name ? style.active : style.link_box }>
@@ -96,20 +115,30 @@ class Header extends React.Component {
                   <p>{selectSymbol}</p>
                   <img className={ style.arrow } src={ showCurr ? up : down } alt={ showCurr ? 'Close currencies' : 'Select currency' } />
                 </section>
-                {showCurr && (
+                <Modal
+                  isOpen={ showCurr }
+                  onRequestClose={ this.hideCurrTable }
+                  className={ style.currencies }
+                >
                   <Currencies changeCurr={ this.handleChange } />
-                )}
+                </Modal>
               </section>
               <section className={ style.cart } onClick={ this.handleCart }>
                 <img className={ style.cart_img } src={ cartImg } alt="Cart icon" />
-                {cart.reduce((acc, { amount }) => acc + amount, 0) !== 0 && (
+                {amount !== 0 && (
                   <section className={ style.amount }>
-                    {cart.reduce((acc, { amount }) => acc + amount, 0)}
+                    {amount}
                   </section>
                 )}
               </section>
             </section>
-            {show && <FloatCart show={ show } hideCart={ this.handleCart } />}
+            <Modal
+              isOpen={ show }
+              onRequestClose={ this.closeCart }
+              className={ style.cart_overlay }
+            >
+              <FloatCart hideCart={ this.closeCart } />
+            </Modal>
           </header>
         )
     )

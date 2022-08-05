@@ -8,19 +8,23 @@ class Currencies extends React.Component {
     const { currencies, changeCurr } = this.props;
     return (
       <table className={ style.curr_table }>
-        {currencies.map(({ symbol, label }) => (
-          <tr className={ style.curr_row } onClick={ changeCurr }>{`${symbol} ${label}`}</tr>
-        ))}
+        <tbody>
+          {currencies.map(({ symbol, label }) => (
+            <tr key={ symbol } className={ style.curr_row } onClick={ changeCurr }>
+              <td>{`${symbol} ${label}`}</td>
+            </tr>
+          ))}
+        </tbody>
       </table>
     );
   }
 }
 
 Currencies.propTypes = {
-  currencies: PropTypes.shape({
+  currencies: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string,
     symbol: PropTypes.string,
-  }).isRequired,
+  })).isRequired,
   changeCurr: PropTypes.func.isRequired,
 };
 

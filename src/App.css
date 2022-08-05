@@ -22,3 +22,7 @@ main {
 button:hover {
   opacity: 0.9;
 }
+
+.ReactModal__Body--open {
+  overflow: hidden;
+}

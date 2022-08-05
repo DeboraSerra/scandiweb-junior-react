@@ -1,12 +1,14 @@
 .header {
   display: flex;
-  width: 90%;
+  width: 100%;
   margin: auto;
   justify-content: space-between;
-  padding: 12px;
+  padding: 24px 72px;
   height: 80px;
   align-items: center;
   position: relative;
+  z-index: 1;
+  background-color: white;
 }
 
 .nav {
@@ -75,8 +77,18 @@
   margin: 0 5px 0 10px;
 }
 
+.currencies {
+  width: 80px;
+  height: fit-content;
+  position: absolute;
+  right: 100px;
+  top: 80px;
+  border: none;
+}
+
 .curr_table {
   position: absolute;
+  background-color: white;
   z-index: 2;
 }
 
@@ -94,6 +106,7 @@
   display: flex;
   align-items: center;
   cursor: pointer;
+  background-color: white;
 }
 
 .cart_img {
@@ -113,4 +126,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.cart_overlay {
+  width: fit-content;
+  position: absolute;
+  top: 80px;
+  right: 0;
 }
