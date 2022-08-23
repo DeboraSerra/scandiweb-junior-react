@@ -1,7 +1,7 @@
 .cart {
   background-color: var(--main);
   width: 360px;
-  height: 677px;
+  height: 680px;
   position: absolute;
   top: 0;
   right: 72px;
@@ -46,8 +46,9 @@
 .item {
   display: flex;
   height: 190px;
-  justify-content: space-between;
+  width: 100%;
   margin: 16px 0;
+  position: relative;
 }
 
 .item_info {
@@ -56,6 +57,9 @@
   line-height: 25.6px;
   overflow-y: scroll;
   margin-right: 8px;
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 
 .item_info::-webkit-scrollbar {
@@ -96,6 +100,15 @@
   overflow: hidden;
 }
 
+.att_box:first-of-type {
+  margin-left: 0;
+}
+
+.att_box:last-of-type {
+  margin-right: 0;
+}
+
+
 .color_att, .color_selected {
   width: 16px;
   height: 16px;
@@ -122,6 +135,10 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  position: absolute;
+  height: 100%;
+  top: 0;
+  right: 136px;
 }
 
 .amount_btn {
@@ -143,6 +160,9 @@
   height: 100%;
   object-fit: cover;
   margin-left: 8px;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 .price_sect {
@@ -153,6 +173,7 @@
   font-size: 16px;
   font-weight: 500;
   line-height: 18px;
+  margin-top: 32px;
 }
 
 .btn_sect {
@@ -171,7 +192,7 @@
   font-size: 14px;
   font-weight: 600;
   line-height: 16.8px;
-  margin: 16px 0;
+  margin: 32px 0;
 }
 
 .btn_to_cart {
