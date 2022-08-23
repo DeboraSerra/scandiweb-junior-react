@@ -48,6 +48,7 @@
   height: 190px;
   width: 100%;
   margin: 16px 0;
+  justify-content: space-between;
   position: relative;
 }
 
@@ -57,9 +58,9 @@
   line-height: 25.6px;
   overflow-y: scroll;
   margin-right: 8px;
-  position: absolute;
+  /* position: absolute;
   left: 0;
-  top: 0;
+  top: 0; */
 }
 
 .item_info::-webkit-scrollbar {

@@ -3,11 +3,11 @@
   width: 100%;
   margin: auto;
   justify-content: space-between;
-  padding: 24px 72px;
+  padding: 24px 100px;
   height: 80px;
   align-items: center;
   position: relative;
-  z-index: 1;
+  /* z-index: 1; */
   background-color: white;
 }
 
@@ -78,11 +78,11 @@
 }
 
 .currencies {
-  width: 80px;
+  width: 114px;
   height: fit-content;
   position: absolute;
-  right: 100px;
-  top: 85px;
+  right: 90px;
+  top: 65px;
   border: none;
 }
 
