@@ -16,13 +16,9 @@
 
 main {
   width: 90%;
-  margin: auto;
+  margin: 0 auto 100px;
 }
 
 button:hover {
   opacity: 0.9;
 }
-
-/* .ReactModal__Body--open {
-  overflow: hidden;
-} */

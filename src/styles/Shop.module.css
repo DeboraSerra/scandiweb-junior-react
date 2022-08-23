@@ -2,16 +2,18 @@
   font-size: 42px;
   font-weight: 400;
   line-height: 67.2px;
+  margin: 80px 0 100px;
 }
 
 .cards_sect {
   width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  gap: 100px 40px;
 }
 
 .card {
+  justify-self: center;
   width: 386px;
   height: 444px;
   padding: 16px;
@@ -31,8 +33,10 @@
 }
 
 .img, .out {
+  min-height: 330px;
   max-width: 354px;
   max-height: 350px;
+  margin: 16px 16px 24px;
   align-self: center;
   cursor: pointer;
 }
